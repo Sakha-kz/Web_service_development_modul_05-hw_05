@@ -1,0 +1,78 @@
+@model IEnumerable<TaskManagerClient.Models.TaskItem>
+
+@{
+    ViewData["Title"] = "Список задач";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="fw-bold mb-0">Список задач</h2>
+        <p class="text-muted mb-0">Управление задачами через внешний Web API с использованием HttpClient и IHttpClientFactory</p>
+    </div>
+    <a asp-action="Create" class="btn btn-success shadow-sm fw-semibold">
+        <i class="bi bi-plus-circle-fill me-1"></i>Добавить задачу
+    </a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 80px;" class="ps-3">ID</th>
+                        <th>Название</th>
+                        <th>Описание</th>
+                        <th>Статус</th>
+                        <th style="width: 220px;" class="text-end pe-3">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-3 fw-bold text-secondary">@item.Id</td>
+                                <td class="fw-bold">@item.Title</td>
+                                <td class="text-muted small">@item.Description</td>
+                                <td>
+                                    @if (item.IsCompleted)
+                                    {
+                                        <span class="badge bg-success"><i class="bi bi-check2-circle me-1"></i>Выполнено</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary"><i class="bi bi-clock me-1"></i>В работе</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-3">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info" title="Инфо">
+                                            <i class="bi bi-eye"></i> Инфо
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" title="Изменить">
+                                            <i class="bi bi-pencil"></i> Изменить
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Удалить">
+                                            <i class="bi bi-trash"></i> Удалить
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">
+                                <i class="bi bi-card-checklist display-6 d-block mb-2"></i>
+                                Задач нет или Web API недоступен.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+@model TaskManagerClient.Models.TaskItem
+
+@{
+    ViewData["Title"] = "Подтверждение удаления задачи";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-danger border-2">
+            <div class="card-header bg-danger text-white py-3">
+                <h4 class="mb-0 fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Подтверждение удаления задачи</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-warning" role="alert">
+                    <i class="bi bi-info-circle-fill me-2"></i>Вы действительно хотите удалить следующую задачу? Это действие отправит HTTP DELETE запрос к Web API и не может быть отменено.
+                </div>
+
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">ID:</dt>
+                    <dd class="col-sm-8 fw-bold">@Model.Id</dd>
+
+                    <dt class="col-sm-4 text-muted">Название:</dt>
+                    <dd class="col-sm-8 fw-bold fs-5">@Model.Title</dd>
+
+                    <dt class="col-sm-4 text-muted">Описание:</dt>
+                    <dd class="col-sm-8 text-secondary">@Model.Description</dd>
+
+                    <dt class="col-sm-4 text-muted">Статус:</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.IsCompleted)
+                        {
+                            <span class="badge bg-success"><i class="bi bi-check2-circle me-1"></i>Выполнено</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary"><i class="bi bi-clock me-1"></i>В работе</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-light p-3 d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Отмена
+                </a>
+                <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger px-4">
+                        <i class="bi bi-trash me-1"></i>Да, удалить задачу
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
