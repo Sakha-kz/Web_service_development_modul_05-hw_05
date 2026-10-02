@@ -173,13 +173,3 @@ dotnet run --project src/TaskManagerClient/TaskManagerClient.csproj
 * **Веб-интерфейс менеджера задач:** [http://localhost:5000/](http://localhost:5000/)
 * **Swagger UI для Web API:** [http://localhost:5000/swagger](http://localhost:5000/swagger)
 
----
-
-## Инструкция по отправке в GitHub
-
-1. Создайте пустой репозиторий на GitHub (например, `Web_service_development_modul_05-hw_05`).
-2. В терминале в папке `Web_service_development_modul_05-hw_05` выполните:
-   ```bash
-   git remote add origin https://github.com/<ВАШ_АККАУНТ>/<ИМЯ_РЕПОЗИТОРИЯ>.git
-   git push -u origin main
-   ```
